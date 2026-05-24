@@ -12,12 +12,25 @@ const nextConfig: NextConfig = {
         hostname: "cdn.shopify.com"
       },
       {
+        protocol: "http",
+        hostname: "localhost",
+        port: "3000"
+      },
+      {
+        protocol: "https",
+        hostname: "**.krishnaayurved.com"
+      },
+      {
         protocol: "https",
         hostname: "krishnaayurved.com"
       },
       {
         protocol: "https",
-        hostname: "blog.krishnaayurved.com"
+        hostname: "**.supabase.co"
+      },
+      {
+        protocol: "https",
+        hostname: "**.gstatic.com"
       }
     ]
   }

@@ -3,11 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { AccountLink } from "@/components/account/account-link";
 import { CartLink } from "@/components/cart/cart-link";
-import { headerCategoryItems, headerProductItems, siteBrand, siteContact, siteSocials, type MegaMenuItem } from "@/lib/site-data";
+import { headerProductItems, siteBrand, siteContact, siteSocials, type MegaMenuItem } from "@/lib/site-data";
+import { DynamicCategoryMenu } from "./dynamic-category-menu";
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 bg-white text-[#242424]">
+      {/* Top Bar omitted for brevity but included in original */}
       <div className="bg-[#305724] text-white">
         <div className="mx-auto flex min-h-11 max-w-[1400px] items-center justify-center px-5 text-center text-[11px] font-medium md:min-h-10 md:text-[12.6px] lg:justify-between">
           <div className="flex items-center gap-8 overflow-hidden">
@@ -26,14 +28,14 @@ export function SiteHeader() {
       </div>
 
       <div className="relative border-b border-[#e1e3e1] bg-white">
-        <div className="mx-auto grid min-h-[72px] max-w-[1400px] grid-cols-[44px_1fr_auto] items-center gap-x-2 px-5 py-2 lg:min-h-[92px] lg:grid-cols-[1fr_4fr_1fr] lg:py-4">
+        <div className="mx-auto grid min-h-[72px] max-w-[1400px] grid-cols-[44px_1fr_auto] items-center gap-x-2 px-5 py-2 lg:min-h-[92px] lg:grid-cols-[1fr_4fr_1fr] lg:py-0">
           <div className="flex items-center lg:hidden">
             <button className="focus-ring flex size-9 items-center justify-center rounded-full bg-[#e1e3e1]" aria-label="Menu">
               <Menu size={20} />
             </button>
           </div>
 
-          <Link href="/" className="mx-auto block w-[150px] lg:mx-0 lg:w-[210px]" aria-label={siteBrand.name}>
+          <Link href="/" className="mx-auto block w-[150px] lg:mx-0 lg:w-[210px] py-4" aria-label={siteBrand.name}>
             <div className="flex items-center gap-3">
               <Image src={siteBrand.logo} alt={siteBrand.name} width={64} height={64} priority className="h-12 w-12 object-contain lg:h-14 lg:w-14" />
               <div className="text-left leading-none">
@@ -43,9 +45,9 @@ export function SiteHeader() {
             </div>
           </Link>
 
-          <nav className="hidden items-center justify-center lg:flex">
-            <ul className="flex flex-wrap items-center justify-center text-sm font-medium">
-              <MegaMenu label="Category" href="/collections/all-products" items={headerCategoryItems} />
+          <nav className="hidden items-center justify-center lg:flex self-stretch">
+            <ul className="flex h-full flex-wrap items-center justify-center text-sm font-medium">
+              <DynamicCategoryMenu />
               <MegaMenu label="Products" href="/collections/all" items={headerProductItems} />
               <SimpleNav label="Combos" href="/collections/combos" />
               <SimpleNav label="Offers" href="/collections/offers" />
@@ -88,8 +90,8 @@ function SocialIcon({ label }: { label: string }) {
 
 function SimpleNav({ label, href }: { label: string; href: string }) {
   return (
-    <li className="px-4">
-      <Link href={href} className="flex items-center py-1 transition hover:text-[#305724]">
+    <li className="px-4 h-full flex items-center">
+      <Link href={href} className="flex items-center py-4 transition hover:text-[#305724]">
         {label}
       </Link>
     </li>
@@ -98,12 +100,12 @@ function SimpleNav({ label, href }: { label: string; href: string }) {
 
 function MegaMenu({ label, href, items }: { label: string; href: string; items: MegaMenuItem[] }) {
   return (
-    <li className="group px-4">
-      <Link href={href} className="flex items-center gap-2 py-1 transition hover:text-[#305724]">
+    <li className="group px-4 h-full flex items-center">
+      <Link href={href} className="flex items-center gap-2 py-4 transition hover:text-[#305724]">
         <span>{label}</span>
         <ChevronDown size={15} strokeWidth={2} className="transition duration-300 group-hover:rotate-180" />
       </Link>
-      <div className="invisible absolute left-0 top-full w-full overflow-hidden bg-white text-[#1d1d1d] opacity-0 shadow-md transition duration-150 group-hover:visible group-hover:opacity-100">
+      <div className="invisible absolute left-0 top-[100%] w-full overflow-hidden bg-white text-[#1d1d1d] opacity-0 shadow-md transition duration-150 group-hover:visible group-hover:opacity-100 z-50">
         <div className="mx-auto max-h-[80vh] max-w-[1400px] overflow-y-auto px-5 py-7">
           <ul className="flex flex-row flex-wrap gap-5 xl:gap-8">
             {items.map((item) => (

@@ -1,14 +1,13 @@
 "use client";
 
 import { ShoppingCart, Star } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useCartStore } from "@/lib/cart-store";
-import type { Product } from "@/lib/site-data";
+import { ProductImage } from "./product-image";
 
-export function ProductCard({ product }: { product: Product }) {
-  const productHref = product.href ?? `/products/${product.id}`;
+export function ProductCard({ product }: { product: any }) {
+  const productHref = product.href ?? `/products/${product.slug || product.id}`;
   const addItem = useCartStore((state) => state.addItem);
   const [added, setAdded] = useState(false);
 
@@ -22,7 +21,11 @@ export function ProductCard({ product }: { product: Product }) {
     <article className="group overflow-hidden rounded-[10px] bg-white pb-4 transition">
       <div className="relative aspect-square overflow-hidden rounded-[10px] bg-[#f7f7f7]">
         <Link href={productHref} className="absolute inset-0" aria-label={product.name}>
-          <Image src={product.image} alt={product.name} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(max-width: 768px) 50vw, 25vw" />
+          <ProductImage 
+            src={product.image || product.image_url} 
+            alt={product.name} 
+            className="transition duration-500 group-hover:scale-105" 
+          />
         </Link>
         {product.badge ? <span className="absolute left-3 top-3 rounded-md bg-[#de9d26] px-3 py-1 text-xs font-black text-white">{product.badge}</span> : null}
         <button

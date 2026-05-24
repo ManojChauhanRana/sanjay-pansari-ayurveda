@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/components/providers/auth-provider";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
 
 export const metadata: Metadata = {
   title: "Sanjay Pasnsari Ayurveda",
@@ -18,11 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          <div className="site-shell">
-            <SiteHeader />
-            {children}
-            <SiteFooter />
-          </div>
+          {children}
         </AuthProvider>
       </body>
     </html>

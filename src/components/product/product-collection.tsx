@@ -32,10 +32,12 @@ const sortOptions: SortOption[] = ["Best selling", "Alphabetically, A-Z", "Price
 
 export function ProductCollection({
   products,
+  categories = [],
   totalCount = products.length,
   initialVisibleCount = 12
 }: {
-  products: Product[];
+  products: any[];
+  categories?: any[];
   totalCount?: number;
   initialVisibleCount?: number;
 }) {
@@ -43,6 +45,21 @@ export function ProductCollection({
   const [sort, setSort] = useState<SortOption>("Best selling");
   const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+
+  const filterGroups: FilterGroup[] = [
+    {
+      title: "Availability",
+      options: ["In stock", "Out of stock"]
+    },
+    {
+      title: "Price",
+      options: ["₹0 - ₹250", "₹250 - ₹500", "₹500 - ₹750", "₹750+"]
+    },
+    {
+      title: "Product type",
+      options: categories.map(c => c.name)
+    }
+  ];
 
   const activeFilterCount = Object.values(selectedFilters).reduce((sum, options) => sum + options.length, 0);
 
@@ -67,15 +84,21 @@ export function ProductCollection({
       .filter((product) => {
         const productTypes = selectedFilters["Product type"] ?? [];
         if (!productTypes.length) return true;
-        return productTypes.includes(product.concern);
+        
+        // Find IDs for selected category names
+        const selectedCatIds = categories
+          .filter(c => productTypes.includes(c.name))
+          .map(c => c.id);
+
+        return (product.category_ids || []).some((id: string) => selectedCatIds.includes(id));
       })
       .sort((a, b) => {
         if (sort === "Alphabetically, A-Z") return a.name.localeCompare(b.name);
         if (sort === "Price, low to high") return a.price - b.price;
         if (sort === "Price, high to low") return b.price - a.price;
-        return products.findIndex((product) => product.id === a.id) - products.findIndex((product) => product.id === b.id);
+        return 0;
       });
-  }, [products, selectedFilters, sort]);
+  }, [products, selectedFilters, sort, categories]);
 
   const visibleProducts = filteredProducts.slice(0, visibleCount);
   const canLoadMore = visibleCount < filteredProducts.length;
@@ -111,10 +134,27 @@ export function ProductCollection({
           <Filter size={18} />
           <span>Filter:</span>
           {filterGroups.map((group) => (
-            <button key={group.title} type="button" className="focus-ring flex min-h-10 items-center gap-2 rounded-md border border-[#d8ddd4] px-4 font-medium text-[#242424]">
-              {group.title}
-              <ChevronDown size={16} />
-            </button>
+            <div key={group.title} className="relative group/filter">
+              <button type="button" className="focus-ring flex min-h-10 items-center gap-2 rounded-md border border-[#d8ddd4] px-4 font-medium text-[#242424]">
+                {group.title}
+                <ChevronDown size={16} />
+              </button>
+              <div className="absolute left-0 top-full z-50 mt-2 hidden min-w-[200px] rounded-lg border border-[#e1e3e1] bg-white p-4 shadow-xl group-hover/filter:block">
+                <div className="space-y-3">
+                  {group.options.map((option) => (
+                    <label key={option} className="flex cursor-pointer items-center gap-3 text-sm text-[#4d5149] hover:text-[#305724]">
+                      <input
+                        type="checkbox"
+                        checked={(selectedFilters[group.title] ?? []).includes(option)}
+                        onChange={() => toggleFilter(group.title, option)}
+                        className="size-4 accent-[#305724]"
+                      />
+                      <span>{option}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
           ))}
           {activeFilterCount ? (
             <button type="button" onClick={clearFilters} className="focus-ring min-h-10 rounded-md px-3 text-sm font-medium text-[#305724]">
@@ -129,7 +169,7 @@ export function ProductCollection({
       <div className="grid gap-8 lg:grid-cols-[240px_1fr]">
         <aside className="hidden lg:block">
           <div className="sticky top-36 space-y-7">
-            <FilterControls selectedFilters={selectedFilters} onToggle={toggleFilter} />
+            <FilterControls filterGroups={filterGroups} selectedFilters={selectedFilters} onToggle={toggleFilter} />
           </div>
         </aside>
 
@@ -182,7 +222,7 @@ export function ProductCollection({
           <div className="flex-1 overflow-y-auto px-5 py-5">
             <SortAndCount sort={sort} setSort={setSort} filteredCount={filteredProducts.length} compact />
             <div className="mt-6 space-y-7">
-              <FilterControls selectedFilters={selectedFilters} onToggle={toggleFilter} />
+              <FilterControls filterGroups={filterGroups} selectedFilters={selectedFilters} onToggle={toggleFilter} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3 border-t border-[#e1e3e1] p-5">
@@ -235,9 +275,11 @@ function SortAndCount({
 }
 
 function FilterControls({
+  filterGroups,
   selectedFilters,
   onToggle
 }: {
+  filterGroups: FilterGroup[];
   selectedFilters: Record<string, string[]>;
   onToggle: (group: string, option: string) => void;
 }) {
@@ -248,7 +290,7 @@ function FilterControls({
           <h2 className="mb-4 text-sm font-semibold text-[#242424]">{group.title}</h2>
           <div className="space-y-3">
             {group.options.map((option) => (
-              <label key={option} className="flex cursor-pointer items-center gap-3 text-sm text-[#4d5149]">
+              <label key={option} className="flex cursor-pointer items-center gap-3 text-sm text-[#4d5149] hover:text-[#305724]">
                 <input
                   type="checkbox"
                   checked={(selectedFilters[group.title] ?? []).includes(option)}

@@ -3,13 +3,14 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import { ProductListContainer } from "@/components/admin/product-list-container";
 
-export default async function AdminProductsPage() {
+export default async function AdminCombosPage() {
   const supabase = await getSupabaseServerClient();
   
-  // 1. Fetch products (without join)
-  const { data: products, error: prodError } = await supabase
+  // 1. Fetch combos (is_combo = true)
+  const { data: combos, error: comboError } = await supabase
     .from('products')
     .select('*')
+    .eq('is_combo', true)
     .order('created_at', { ascending: false });
 
   // 2. Fetch categories for mapping
@@ -17,27 +18,27 @@ export default async function AdminProductsPage() {
     .from('categories')
     .select('id, name');
 
-  if (prodError) {
-    return <div className="text-red-500">Error loading products: {prodError.message}</div>;
+  if (comboError) {
+    return <div className="text-red-500">Error loading combos: {comboError.message}</div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#242424]">Product Management</h1>
-          <p className="text-sm text-[#5d6258]">Create, edit, and manage your Ayurvedic products.</p>
+          <h1 className="text-2xl font-bold text-[#242424]">Combo Management</h1>
+          <p className="text-sm text-[#5d6258]">Create and manage bundled product offers.</p>
         </div>
         <Link 
-          href="/admin/products/new"
+          href="/admin/combos/new"
           className="focus-ring inline-flex items-center gap-2 rounded-md bg-[#305724] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"
         >
           <Plus size={18} />
-          Add Product
+          Create Combo
         </Link>
       </div>
 
-      <ProductListContainer products={products || []} allCategories={categories || []} />
+      <ProductListContainer products={combos || []} allCategories={categories || []} />
     </div>
   );
 }
