@@ -146,19 +146,9 @@ export const concernTiles = [
 
 export const heroSlides = [
   {
-    image: cdn("/cdn/shop/files/Bovisolv_Banner_jpg.jpg?v=1776242370&width=3840"),
-    mobileImage: cdn("/cdn/shop/files/Bovisolv_Mobile_Banner_jpg.jpg?v=1776242450&width=1500"),
-    href: "/products/bovisolv-juice"
-  },
-  {
-    image: cdn("/cdn/shop/files/She-Care-Web-Banner.jpg?v=1771417739&width=3840"),
-    mobileImage: cdn("/cdn/shop/files/She-care-mobile-version.jpg?v=1771417790&width=1500"),
-    href: "/products/she-care-juice"
-  },
-  {
-    image: cdn("/cdn/shop/files/Diabic-Banner---Web.jpg?v=1771417849&width=3840"),
-    mobileImage: cdn("/cdn/shop/files/Diabic-Bannwe---Mobile.jpg?v=1771417887&width=1500"),
-    href: "/products/diabic-care-juice-regulates-diabetes-1"
+    image: "/images/client/long-journey-banner.jpg",
+    mobileImage: "/images/client/long-journey-banner.jpg",
+    href: "/collections/power"
   }
 ];
 

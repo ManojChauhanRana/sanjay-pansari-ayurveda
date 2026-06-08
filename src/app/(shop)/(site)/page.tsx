@@ -38,23 +38,22 @@ export default async function Home() {
     <main className="bg-[#fbfaf4]">
       <section className="bg-white">
         <div className="px-0 py-0 md:px-5">
-          <a href={heroSlides[0].href} className="relative block aspect-[4/5] overflow-hidden bg-[#c9c9c9] md:aspect-[2.218/1] md:rounded-[10px]">
-            <picture>
-              <source media="(max-width: 767px)" srcSet={heroSlides[0].mobileImage} />
-              <Image
-                src={heroSlides[0].image}
-                alt="Ayurveda banner"
-                fill
-                priority
-                className="object-cover"
-                sizes="100vw"
-              />
-            </picture>
-            <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-              {heroSlides.map((slide, index) => (
-                <span key={slide.href} className={`h-1.5 w-14 rounded-full ${index === 0 ? "bg-white" : "bg-white/45"}`} />
-              ))}
-            </div>
+          <a href={heroSlides[0].href} className="relative block aspect-[682/1024] overflow-hidden bg-[#c9c9c9] md:rounded-[10px] max-w-[600px] mx-auto w-full">
+            <Image
+              src={heroSlides[0].image}
+              alt="Ayurveda banner"
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 767px) 100vw, 600px"
+            />
+            {heroSlides.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+                {heroSlides.map((slide, index) => (
+                  <span key={slide.href} className={`h-1.5 w-14 rounded-full ${index === 0 ? "bg-white" : "bg-white/45"}`} />
+                ))}
+              </div>
+            )}
           </a>
         </div>
       </section>
