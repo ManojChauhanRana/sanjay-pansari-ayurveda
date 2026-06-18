@@ -2,7 +2,7 @@ import { ArrowRight, CheckCircle2, ShieldAlert } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product/product-card";
-import { categoryTiles, heroSlides, trustBadges } from "@/lib/site-data";
+import { categoryTiles, heroSlides, promoBanners, trustBadges } from "@/lib/site-data";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 import Link from "next/link";
 
@@ -38,14 +38,14 @@ export default async function Home() {
     <main className="bg-[#fbfaf4]">
       <section className="bg-white">
         <div className="px-0 py-0 md:px-5">
-          <a href={heroSlides[0].href} className="relative block aspect-[682/1024] overflow-hidden bg-[#c9c9c9] md:rounded-[10px] max-w-[600px] mx-auto w-full">
+          <a href={heroSlides[0].href} className="relative mx-auto block aspect-[2/1] w-full max-w-[1600px] overflow-hidden bg-black md:rounded-[10px]">
             <Image
               src={heroSlides[0].image}
-              alt="Ayurveda banner"
+              alt="Sanjay Pansari Long Journey banner"
               fill
               priority
-              className="object-cover"
-              sizes="(max-width: 767px) 100vw, 600px"
+              className="object-contain"
+              sizes="100vw"
             />
             {heroSlides.length > 1 && (
               <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
@@ -57,6 +57,8 @@ export default async function Home() {
           </a>
         </div>
       </section>
+
+      <PromoImageScroller />
 
       {/* Dynamic Concerns (Categories) */}
       <section className="bg-white py-7 md:py-10">
@@ -106,23 +108,16 @@ export default async function Home() {
 
       <section className="bg-white py-8">
         <div className="container">
-          <div className="relative min-h-[260px] overflow-hidden rounded-md border border-[#e6dfcf] bg-[#eaf2df] md:min-h-[340px]">
-            <Image
-              src="https://images.unsplash.com/photo-1600428877878-1a0fd85beda0?auto=format&fit=crop&w=1600&q=80"
-              alt="Natural herbs and Ayurveda ingredients"
-              fill
-              className="object-cover"
-              sizes="100vw"
-            />
-            <div className="absolute inset-y-0 left-0 flex max-w-xl flex-col justify-center bg-white/92 p-6 md:p-10">
+          <div className="overflow-hidden rounded-md border border-[#e6dfcf] bg-[#eaf2df]">
+            <div className="max-w-3xl p-6 md:p-10">
               <p className="text-xs font-black uppercase text-[#9a6b18]">Quality First</p>
-              <h2 className="mt-3 text-3xl font-black text-[#244d2b]">From farm to formulation</h2>
+              <h2 className="mt-3 text-3xl font-black text-[#244d2b]">Ayurvedic treatment and wellness support</h2>
               <p className="mt-3 text-sm leading-6 text-[#4f5a48]">
-                Authentic Ayurvedic products crafted with tradition and modern science. Lab-tested and GMP certified for your wellness.
+                Special treatment for erectile dysfunction, sugar, joint pain, paralysis, and gall bladder stone, supported by authentic Ayurvedic care.
               </p>
               <div className="mt-5 flex flex-wrap gap-3 text-sm font-bold text-[#244d2b]">
-                <span className="inline-flex items-center gap-2"><CheckCircle2 size={18} /> GMP Certified</span>
-                <span className="inline-flex items-center gap-2"><ShieldAlert size={18} /> Lab Tested</span>
+                <span className="inline-flex items-center gap-2"><CheckCircle2 size={18} /> Ayurvedic Care</span>
+                <span className="inline-flex items-center gap-2"><ShieldAlert size={18} /> Wellness Support</span>
               </div>
             </div>
           </div>
@@ -163,6 +158,22 @@ function ProductSection({ title, products: sectionProducts }: { title: string; p
             <ProductCard key={`${title}-${product.id}`} product={product} />
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function PromoImageScroller() {
+  if (!promoBanners.length) return null;
+
+  return (
+    <section className="overflow-hidden bg-[#0b0b0b] py-4">
+      <div className="flex min-w-max animate-[scroll-left_48s_linear_infinite] gap-4 px-4">
+        {[...promoBanners, ...promoBanners].map((image, index) => (
+          <div key={`${image.src}-${index}`} className="relative aspect-[5/4] w-[280px] shrink-0 overflow-hidden rounded-md border border-white/10 bg-black md:w-[420px]">
+            <Image src={image.src} alt={image.alt} fill className="object-cover" sizes="(max-width: 768px) 280px, 420px" />
+          </div>
+        ))}
       </div>
     </section>
   );

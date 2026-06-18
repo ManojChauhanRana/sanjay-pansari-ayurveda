@@ -13,7 +13,7 @@ export function SearchPage({ products }: { products: Product[] }) {
     if (!normalizedQuery) return products.slice(0, 12);
 
     return products.filter((product) => {
-      return [product.name, product.concern, product.unit ?? ""].some((value) => value.toLowerCase().includes(normalizedQuery));
+      return [product.name, product.concern ?? "", product.unit ?? ""].some((value) => value.toLowerCase().includes(normalizedQuery));
     });
   }, [products, query]);
 

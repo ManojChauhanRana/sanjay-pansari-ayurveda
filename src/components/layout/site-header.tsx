@@ -1,9 +1,9 @@
-import { ChevronDown, Menu, Search } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { AccountLink } from "@/components/account/account-link";
 import { CartLink } from "@/components/cart/cart-link";
-import { headerProductItems, siteBrand, siteContact, siteSocials, type MegaMenuItem } from "@/lib/site-data";
+import { siteBrand, siteContact, siteSocials } from "@/lib/site-data";
 import { DynamicCategoryMenu } from "./dynamic-category-menu";
 
 export function SiteHeader() {
@@ -39,7 +39,10 @@ export function SiteHeader() {
             <div className="flex items-center gap-3">
               <Image src={siteBrand.logo} alt={siteBrand.name} width={64} height={64} priority className="h-12 w-12 object-contain lg:h-14 lg:w-14" />
               <div className="text-left leading-none">
-                <span className="block text-[16px] font-extrabold tracking-tight text-[#305724] lg:text-[20px]">{siteBrand.name.toUpperCase()}</span>
+                <span className="block text-[16px] font-extrabold tracking-tight lg:text-[20px]">
+                  <span className="text-[#123a7a]">{siteBrand.firstName.toUpperCase()}</span>{" "}
+                  <span className="text-[#c51f27]">{siteBrand.lastName.toUpperCase()}</span>
+                </span>
                 <span className="mt-1 block text-[9px] font-bold uppercase tracking-[0.32em] text-[#6e725f] lg:text-[10px]">{siteBrand.subtitle}</span>
               </div>
             </div>
@@ -48,12 +51,11 @@ export function SiteHeader() {
           <nav className="hidden items-center justify-center lg:flex self-stretch">
             <ul className="flex h-full flex-wrap items-center justify-center text-sm font-medium">
               <DynamicCategoryMenu />
-              <MegaMenu label="Products" href="/collections/all" items={headerProductItems} />
+              <SimpleNav label="Products" href="/collections/all" />
               <SimpleNav label="Combos" href="/collections/combos" />
               <SimpleNav label="Offers" href="/collections/offers" />
               <SimpleNav label="Consult by Vaidya" href="/pages/consult-by-vaidya" />
               <SimpleNav label="Rewards" href="/pages/rewards" />
-              <SimpleNav label="Blog" href="https://blog.krishnaayurved.com/" />
             </ul>
           </nav>
 
@@ -94,43 +96,6 @@ function SimpleNav({ label, href }: { label: string; href: string }) {
       <Link href={href} className="flex items-center py-4 transition hover:text-[#305724]">
         {label}
       </Link>
-    </li>
-  );
-}
-
-function MegaMenu({ label, href, items }: { label: string; href: string; items: MegaMenuItem[] }) {
-  return (
-    <li className="group px-4 h-full flex items-center">
-      <Link href={href} className="flex items-center gap-2 py-4 transition hover:text-[#305724]">
-        <span>{label}</span>
-        <ChevronDown size={15} strokeWidth={2} className="transition duration-300 group-hover:rotate-180" />
-      </Link>
-      <div className="invisible absolute left-0 top-[100%] w-full overflow-hidden bg-white text-[#1d1d1d] opacity-0 shadow-md transition duration-150 group-hover:visible group-hover:opacity-100 z-50">
-        <div className="mx-auto max-h-[80vh] max-w-[1400px] overflow-y-auto px-5 py-7">
-          <ul className="flex flex-row flex-wrap gap-5 xl:gap-8">
-            {items.map((item) => (
-              <MegaMenuCard key={item.href} item={item} />
-            ))}
-          </ul>
-        </div>
-      </div>
-    </li>
-  );
-}
-
-function MegaMenuCard({ item }: { item: MegaMenuItem }) {
-  return (
-    <li className="w-24 lg:w-48">
-      <div>
-        {item.image ? (
-          <Link href={item.href} className="focus-ring relative mt-1 block aspect-square overflow-hidden rounded-[10px] bg-[#f3f6ef]" aria-label={item.label}>
-            <Image src={item.image} alt={item.label} fill className="object-cover transition duration-300 hover:scale-105" sizes="(max-width: 1024px) 96px, 192px" />
-          </Link>
-        ) : null}
-        <Link href={item.href} className="mt-2 inline-block text-sm font-medium leading-snug transition hover:text-[#305724]">
-          {item.label}
-        </Link>
-      </div>
     </li>
   );
 }

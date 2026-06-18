@@ -31,7 +31,7 @@ const faqs = [
 ];
 
 export const metadata: Metadata = {
-  title: "Consult by Vaidya | Krishna's Herbal & Ayurveda",
+  title: "Consult by Vaidya | Sanjay Pansari Assandh",
   description: "Ayurvedic consultation with expert Ayurvedic Vaidyas."
 };
 
@@ -43,7 +43,7 @@ export default function ConsultByVaidyaPage() {
           <div className="overflow-hidden rounded-[10px]">
             <div className="relative aspect-[1440/660] w-full">
               <Image
-                src="https://blog.krishnaayurved.com/wp-content/uploads/2026/01/Doc-Consultation-Banner.jpg"
+                src="/images/client/gallery/sanjay-gallery-01.png"
                 alt="Consult by Vaidya"
                 fill
                 priority
@@ -109,7 +109,7 @@ export default function ConsultByVaidyaPage() {
           <aside className="rounded-[8px] border border-[#e1e3e1] bg-white p-6 md:p-8">
             <h2 className="text-2xl font-semibold text-[#242424]">Consultation support</h2>
             <p className="mt-4 text-sm leading-7 text-[#5d6258]">
-              This page is now rebuilt locally from the source structure, with the same overall banner, headline, booking section, and FAQ layout.
+              Share your concern and the care team will help you with Ayurvedic consultation support.
             </p>
             <div className="mt-6 space-y-5 text-sm text-[#3f433d]">
               <div>

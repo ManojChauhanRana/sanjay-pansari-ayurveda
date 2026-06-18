@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Gift, Star, Wallet } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Rewards | Krishna's Herbal & Ayurveda",
+  title: "Rewards | Sanjay Pansari Assandh",
   description: "Rewards program placeholder page."
 };
 

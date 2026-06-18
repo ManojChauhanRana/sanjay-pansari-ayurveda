@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AuthCard } from "@/components/account/auth-card";
 
 export const metadata: Metadata = {
-  title: "Create Account | Krishna's Herbal & Ayurveda",
+  title: "Create Account | Sanjay Pansari Assandh",
   description: "Create a customer account."
 };
 

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Star, Truck, ShieldCheck, PackageCheck, Home, Search, ChevronRight } from "lucide-react";
 import { ProductCard } from "@/components/product/product-card";
 import { ProductPurchasePanel } from "@/components/product/product-purchase-panel";
-import { getProductBySlug, getRelatedProducts } from "@/lib/site-data";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 import { ProductImage } from "@/components/product/product-image";
 
@@ -14,11 +13,6 @@ type ProductPageProps = {
 };
 
 async function getProduct(slug: string) {
-  // 1. Try hardcoded first
-  const hardcoded = getProductBySlug(slug);
-  if (hardcoded) return hardcoded;
-
-  // 2. Try Database
   const supabase = await getSupabaseServerClient();
   const { data: dbProduct } = await supabase
     .from('products')
@@ -46,10 +40,39 @@ async function getProduct(slug: string) {
       description: dbProduct.description,
       benefits: dbProduct.benefits,
       how_to_use: dbProduct.how_to_use,
+      category_ids: dbProduct.category_ids || []
     };
   }
 
   return null;
+}
+
+async function getRelatedProducts(product: any) {
+  const categoryIds = product.category_ids || [];
+  if (!categoryIds.length) return [];
+
+  const supabase = await getSupabaseServerClient();
+  const { data: dbProducts } = await supabase
+    .from("products")
+    .select("*")
+    .contains("category_ids", [categoryIds[0]])
+    .neq("id", product.id)
+    .limit(4);
+
+  return (dbProducts || []).map((item) => ({
+    id: item.id,
+    name: item.name,
+    slug: item.slug,
+    concern: product.concern,
+    price: item.base_price,
+    mrp: item.base_mrp,
+    reviews: 0,
+    image: item.image_url,
+    badge: item.badges?.[0] || "",
+    badges: item.badges || [],
+    unit: "Standard",
+    category_ids: item.category_ids || []
+  }));
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
@@ -98,7 +121,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
     );
   }
 
-  const relatedProducts = getRelatedProducts(product as any);
+  const relatedProducts = await getRelatedProducts(product as any);
   const price = Number(product.price);
   const mrp = product.mrp ? Number(product.mrp) : price + 100;
   const discount = Math.max(0, Math.round(((mrp - price) / mrp) * 100));

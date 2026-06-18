@@ -48,12 +48,7 @@ textarea {
 
 .site-shell {
   min-height: 100vh;
-  background:
-    linear-gradient(180deg, rgba(255, 253, 247, 0.95) 0%, rgba(251, 250, 244, 0.98) 38%, #f4f0e5 100%),
-    url("https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=1800&q=80");
-  background-attachment: fixed;
-  background-position: top center;
-  background-size: cover;
+  background: linear-gradient(180deg, rgba(255, 253, 247, 0.95) 0%, rgba(251, 250, 244, 0.98) 38%, #f4f0e5 100%);
 }
 
 .container {

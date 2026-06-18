@@ -99,7 +99,7 @@ export async function generateMetadata({ params }: InfoPageProps): Promise<Metad
   const page = pageContent[slug];
 
   return {
-    title: page ? `${page.title} | Krishna's Herbal & Ayurveda` : "Page not found"
+    title: page ? `${page.title} | Sanjay Pansari Assandh` : "Page not found"
   };
 }
 

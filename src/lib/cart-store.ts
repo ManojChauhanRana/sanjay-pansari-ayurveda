@@ -43,7 +43,7 @@ export const useCartStore = create<CartState>()(
                 name: product.name,
                 price: product.price,
                 mrp: product.mrp,
-                image: product.image,
+                image: product.image ?? "",
                 href: product.href,
                 unit: product.unit,
                 quantity

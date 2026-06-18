@@ -10,8 +10,7 @@ const footerGroups = [
       { label: "About Us", href: "/pages/about-us" },
       { label: "Contact Us", href: "/pages/contact-us" },
       { label: "Media", href: "/pages/media" },
-      { label: "Work with us", href: "/pages/work-with-us" },
-      { label: "Blog", href: "https://blog.krishnaayurved.com/" }
+      { label: "Work with us", href: "/pages/work-with-us" }
     ]
   },
   {
@@ -43,7 +42,11 @@ export function SiteFooter() {
           <div className="flex items-center gap-3">
             <Image src={siteBrand.logo} alt={siteBrand.name} width={56} height={56} className="h-14 w-14 object-contain" />
             <div>
-              <h2 className="text-2xl font-bold">{siteBrand.name}</h2>
+              <h2 className="text-2xl font-bold">
+                <span className="text-[#7fb4ff]">{siteBrand.firstName}</span>{" "}
+                <span className="text-[#ff7676]">{siteBrand.lastName}</span>{" "}
+                <span>{siteBrand.suffix}</span>
+              </h2>
               <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#e8eadc]">{siteBrand.subtitle}</p>
             </div>
           </div>
