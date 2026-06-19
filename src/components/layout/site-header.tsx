@@ -55,6 +55,7 @@ export function SiteHeader() {
               <SimpleNav label="Combos" href="/collections/combos" />
               <SimpleNav label="Offers" href="/collections/offers" />
               <SimpleNav label="Consult by Vaidya" href="/pages/consult-by-vaidya" />
+              <SimpleNav label="About Us" href="/pages/about-us" />
               <SimpleNav label="Rewards" href="/pages/rewards" />
             </ul>
           </nav>
@@ -76,6 +77,7 @@ export function SiteHeader() {
           <Link href="/collections/combos">Combos</Link>
           <Link href="/collections/offers">Offers</Link>
           <Link href="/pages/consult-by-vaidya">Consult by Vaidya</Link>
+          <Link href="/pages/about-us">About Us</Link>
           <Link href="/pages/rewards">Rewards</Link>
         </div>
       </div>
@@ -84,9 +86,18 @@ export function SiteHeader() {
 }
 
 function SocialIcon({ label }: { label: string }) {
-  if (label === "Twitter") return <span className="text-[11px] font-bold uppercase">X</span>;
-  if (label === "Facebook") return <span className="text-[12px] font-bold">f</span>;
-  if (label === "Instagram") return <span className="text-[10px] font-bold uppercase">ig</span>;
+  if (label === "Facebook") return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="size-4">
+      <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+    </svg>
+  );
+  if (label === "Instagram") return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-4">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+    </svg>
+  );
   return <span className="text-[10px] font-bold uppercase">yt</span>;
 }
 

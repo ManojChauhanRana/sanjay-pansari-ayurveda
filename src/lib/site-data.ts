@@ -75,12 +75,12 @@ export const galleryImages = [
 export const promoBanners = galleryImages.filter((image) => image.orientation === "landscape");
 
 export const categoryTiles = [
-  { label: "Sugar Care", href: "/collections/all", icon: Sparkles },
-  { label: "Joint Pain", href: "/collections/all", icon: Flame },
-  { label: "Paralysis Care", href: "/collections/all", icon: Brain },
-  { label: "Gall Bladder Stone", href: "/collections/all", icon: ShieldCheck },
-  { label: "Men's Wellness", href: "/collections/all", icon: HeartPulse },
-  { label: "Eye Wellness", href: "/collections/all", icon: Eye }
+  { label: "Men's Health", href: "/collections/mens-health", icon: HeartPulse },
+  { label: "Liver Health", href: "/collections/liver-health", icon: ShieldCheck },
+  { label: "Weight Loss", href: "/collections/weight-management", icon: Flame },
+  { label: "General Wellness", href: "/collections/general-wellness", icon: Sparkles },
+  { label: "Joint Pain", href: "/collections/all", icon: Brain },
+  { label: "Sugar Care", href: "/collections/all", icon: Eye }
 ];
 
 export const trustBadges = [
@@ -159,4 +159,4 @@ export const siteSocials = [
 ] as const;
 
 export const siteDescription =
-  "Special treatment for erectile dysfunction, sugar, joint pain, paralysis, and gall bladder stone.";
+  "Sanjay Pansari Multispeciality Ayurvedic Hospital — trusted by 15,000+ patients across Haryana for over 25 years. 100% natural, herbal Ayurvedic medicines formulated by expert Vaidyas.";

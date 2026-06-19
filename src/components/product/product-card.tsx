@@ -40,11 +40,13 @@ export function ProductCard({ product }: { product: any }) {
         <Link href={productHref}>
           <h3 className="min-h-10 text-sm font-semibold leading-5 text-[#1d1d1d] md:text-base">{product.name}</h3>
         </Link>
-        <div className="mt-3 flex items-center justify-center gap-1 text-xs text-[#0cd25b]">
-          <Star size={15} fill="currentColor" />
-          <span>4.9</span>
-          <span className="text-[#6e725f]">({product.reviews})</span>
-        </div>
+        {product.reviews > 0 && (
+          <div className="mt-3 flex items-center justify-center gap-1 text-xs text-[#0cd25b]">
+            <Star size={15} fill="currentColor" />
+            <span>4.9</span>
+            <span className="text-[#6e725f]">({product.reviews})</span>
+          </div>
+        )}
         <div className="mt-3 flex flex-wrap items-end justify-center gap-2">
           <span className="text-sm font-semibold md:text-base">From ₹{product.price}</span>
           {product.mrp ? <span className="text-sm text-[#7d806f] line-through">₹{product.mrp}</span> : null}
