@@ -276,7 +276,7 @@ export default async function Home() {
                   Shop Now <ArrowRight size={16} />
                 </Link>
               </div>
-              <div className="relative hidden md:block" style={{ minHeight: 420 }}>
+              <div className="relative h-[300px] md:h-auto md:min-h-[420px]">
                 <ImageSlideshow images={whyChooseSlides} intervalMs={3000} />
               </div>
             </div>

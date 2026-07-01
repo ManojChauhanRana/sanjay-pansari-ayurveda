@@ -44,7 +44,7 @@ export function ImageSlideshow({ images, intervalMs = 3000 }: ImageSlideshowProp
       ))}
 
       {/* Left gradient overlay — blends into the green content panel */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1e3d24]/70 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1e3d24]/60 via-transparent to-transparent md:bg-gradient-to-r md:from-[#1e3d24]/70 md:via-transparent md:to-transparent" />
 
       {/* Dot indicators */}
       <div className="absolute bottom-4 right-4 z-10 flex gap-1.5">
